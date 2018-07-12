@@ -44,8 +44,8 @@ git pull --rebase
 
 3. Add, commit, pull, push
 ```sh
-git add alicelogo.eps
-git commit -m "Adding alicelogo"
+git add miofile.py
+git commit -m "Adding miofile"
 git pull --rebase
 git push -u origin master
 ```
