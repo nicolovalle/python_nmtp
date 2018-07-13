@@ -9,9 +9,9 @@ c1=0
 c2=0
 c3=0
 
-NN=1
+NN=100
 
-Nboot=1000000
+Nboot=4000
 
 for j in range(NN):
     print("----->j=",j)
@@ -65,8 +65,9 @@ for j in range(NN):
 
 #plt.hist(x,30)
 
-for k in range(NN):
-    print(X[k],"  pm  ",S[k])
+print(np.mean(X))
+print(np.std(X))
+print(np.mean(S))
 print("\n\n")
 print("In s/2: ",c05,"\nIn s: ",c1,"\nIn 2s:",c2,"\nIn 3s:",c3)
 plt.show()
