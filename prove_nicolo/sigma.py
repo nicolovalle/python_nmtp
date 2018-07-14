@@ -13,7 +13,7 @@ NN=1000    #repeat the program NN times --> get NN bootstram distributions
 
 Nboot=40   #bootstram sample dimensin (on 1000 data points)
 
-datapoints=10
+datapoints=100
 
 
 
@@ -57,7 +57,7 @@ for j in range(NN):
         maxbin=x+4*s
         bins=[minbin+(maxbin-minbin)*ii/nbin for ii in range(nbin)]
         plt.plot(bins,1/(s*np.sqrt(2*np.pi))*np.exp(-(bins-x)**2/(2*s**2)),linewidth=2,color='r')
-        fx, fy = [teo,0], [teo,4]
+        fx , fy = [teo,teo],[0,4]
         plt.plot(fx,fy,color='g')
     X.append(x)
     S.append(s)
@@ -72,9 +72,11 @@ for j in range(NN):
 
 #plt.hist(x,30)
 
-print(np.mean(X))
-print(np.std(X))
-print(np.mean(S))
+print("Media dei",NN,"esperimenti:",np.mean(X))
+print("RMS dei",NN,"esperimenti:",np.std(X))
+print("\n")
+print("Media delle varianze dei",NN,"esperimenti:",np.mean(S))
+print("RMS delle varianze dei",NN,"esperimenti:",np.std(S))
 print("\n\n")
 print("In s/2: ",c05,"\nIn s: ",c1,"\nIn 2s:",c2,"\nIn 3s:",c3)
 plt.show()
