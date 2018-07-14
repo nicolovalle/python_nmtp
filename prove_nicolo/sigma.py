@@ -9,30 +9,37 @@ c1=0
 c2=0
 c3=0
 
-NN=100
+NN=1000    #repeat the program NN times --> get NN bootstram distributions
 
-Nboot=4000
+Nboot=40   #bootstram sample dimensin (on 1000 data points)
+
+datapoints=10
+
+
+
+teo=1  #theoretical result
+
 
 for j in range(NN):
     print("----->j=",j)
 
-    VV=np.random.normal(0,1,1000)
-    
-       
+    VV=np.random.normal(0,1,datapoints)
+           
     v = []
     
     for k in range(Nboot):
         if (k%1000==0):
             print((Nboot-k)/1000)
         
-        indici=np.random.randint(999,size=1000)
+        indici=np.random.randint(datapoints,size=datapoints)
        
-        #print(s)
+        
 
 
         boots=[VV[z] for z in indici]
 
-        curt=(moment(boots,4)/moment(boots,2)**2)-3
+        #curt=(moment(boots,4)/moment(boots,2)**2)-3
+        curt=moment(boots,2)
 
 
         v.append(curt)
@@ -50,17 +57,17 @@ for j in range(NN):
         maxbin=x+4*s
         bins=[minbin+(maxbin-minbin)*ii/nbin for ii in range(nbin)]
         plt.plot(bins,1/(s*np.sqrt(2*np.pi))*np.exp(-(bins-x)**2/(2*s**2)),linewidth=2,color='r')
-        fx, fy = [0,0], [0,4]
+        fx, fy = [teo,0], [teo,4]
         plt.plot(fx,fy,color='g')
     X.append(x)
     S.append(s)
-    if (abs(x)<0.5*s):
+    if (abs(x-teo)<0.5*s):
         c05+=1
-    if (abs(x)<s):
+    if (abs(x-teo)<s):
         c1+=1
-    if (abs(x)<2.*s):
+    if (abs(x-teo)<2.*s):
         c2+=1
-    if (abs(x)<3.*s):
+    if (abs(x-teo)<3.*s):
         c3+=1
 
 #plt.hist(x,30)
