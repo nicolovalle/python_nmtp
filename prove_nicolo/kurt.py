@@ -9,11 +9,11 @@ c1=0
 c2=0
 c3=0
 
-NN=5    #repeat the program NN times --> get NN bootstram distributions
+NN=1000    #repeat the program NN times --> get NN bootstram distributions
 
-Nboot=10000   #bootstram sample dimensin (on 1000 data points)
+Nboot=5000   #bootstram sample dimensin (on 1000 data points)
 
-datapoints=1000
+datapoints=500
 
 teo=-6./5
 
@@ -55,7 +55,7 @@ for j in range(NN):
         maxbin=x+4*s
         bins=[minbin+(maxbin-minbin)*ii/nbin for ii in range(nbin)]
         plt.plot(bins,1/(s*np.sqrt(2*np.pi))*np.exp(-(bins-x)**2/(2*s**2)),linewidth=2,color='r')
-        fx, fy = [teo,teo], [0,4]
+        fx, fy = [teo,teo], [0,10]
         plt.plot(fx,fy,color='g')
     X.append(x)
     S.append(s)
