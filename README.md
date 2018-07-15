@@ -8,6 +8,8 @@
 
 * Altri link utili:
   * www.google.com
+  * http://young.physics.ucsc.edu/jackboot.pdf (jacknife e bootstrap)
+  * http://www.helsinki.fi/~rummukai/simu/fss.pdf (Binder cumulants for Ising)
 
 
 
