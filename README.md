@@ -16,12 +16,12 @@
 
 ## Git commands
 
-* Cloning the repository
+* Cloning the repository (verrà creata la directory _pythn___nmtp_ nella directory in cui esegui il programma)
 
 ```sh
 git clone https://github.com/nicolovalle/python_nmtp
 ```
-verrà creata la directory **pythn_nmtp** nella directory in cui esegui il programma.
+
 
 * Setting up your credentials
 ```sh
