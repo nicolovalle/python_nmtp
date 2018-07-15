@@ -60,3 +60,8 @@ git push -u origin master
 ./upload.sh miofile.py "Adding_miofile"
 ```
 che esegue tutti i comandi del punto 1. Verranno chieste le credenziali di accesso a GitHub.
+
+3. To create and upload folders, it is necessary that they are not empty.
+```sh
+./uplead.sh nuovadirectory "Comment..."
+```
