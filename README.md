@@ -1,13 +1,13 @@
 ## Python NMTP
 
-## Note details
+## Useful links
 
 
 
 * GitHub page : https://github.com/nicolovalle/python_nmtp
 
 * Altri link utili:
-** www.google.com
+  * www.google.com
 
 
 
