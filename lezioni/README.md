@@ -8,7 +8,7 @@ L'idea credo sia la seguente:
 * Calcolo Bc=1-<m^4>/3<m^2>^2 (vedi slide 15 di http://www.helsinki.fi/~rummukai/simu/fss.pdf)
 * Fatto questo per tutti i valori di beta, ho la curva di Bc in funzione di beta.
 
-* Ripeto per un altra dimensione del reticolo --> ottengo un'altra curva che interseca la precedente. Definisco la mia stima del beta critico come il punto di intersezione delle due curve.
+* Ripeto per un'altra dimensione del reticolo --> ottengo un'altra curva che interseca la precedente. Definisco la mia stima del beta critico come il punto di intersezione delle due curve.
 
 * Ora si pone il problema di stimare l'errore su questa stima. Descrivo di seguito solo come stimare l'errore su Bc fissato beta (ovvero l'errore su un singolo punto di una delle due curve).
 
