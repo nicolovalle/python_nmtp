@@ -59,4 +59,4 @@ git push -u origin master
 ```sh
 ./upload.sh miofile.py "Adding_miofile"
 ```
-	che esegue tutti i comandi del punto 1. Verranno chieste le credenziali di accesso a GitHub.
+che esegue tutti i comandi del punto 1. Verranno chieste le credenziali di accesso a GitHub.
