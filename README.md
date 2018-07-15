@@ -16,6 +16,12 @@
 
 ## Git commands
 
+* Cloning the repository
+
+```sh
+git clone https://github.com/nicolovalle/python_nmtp
+```
+verrà creata la directory **pythn_nmtp** nella directory in cui esegui il programma.
 
 * Setting up your credentials
 ```sh
@@ -24,10 +30,7 @@ git config --global user.email "name.surname@cern.ch"
 ```
 
 
-* Cloning the repository
-```sh
-git clone https://github.com/nicolovalle/python_nmtp
-```
+
 
 
 * Checking the status of your repository
