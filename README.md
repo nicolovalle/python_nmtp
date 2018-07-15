@@ -63,5 +63,5 @@ che esegue tutti i comandi del punto 1. Verranno chieste le credenziali di acces
 
 3. To create and upload folders, it is necessary that they are not empty.
 ```sh
-./uplead.sh nuovadirectory "Comment..."
+./upload.sh nuovadirectory "Comment..."
 ```
