@@ -15,7 +15,7 @@ L'idea credo sia la seguente:
   * **Bootstrap**
 	* Per Nb volte genero un campione di n=1000 magnetizzazioni estraendo a caso con reimmissione dalle n generate in precedenza.
 	* Per ognuna di queste copie del campione calcolo Ul con lo stesso metodo.
-	* No Nb valori di Ul: ne faccio istogramma, vedo come si distribuiscono e (sperando che il valore centrale sia quello calcolato all'inizio) e stimo l'errore
+	* Ho Nb valori di Ul: ne faccio istogramma, vedo come si distribuiscono e (sperando che il valore centrale sia quello calcolato all'inizio) e stimo l'errore
 
   * **Jacknife**
 	* Per n volte genero un campione di n-1=999 magnetizzazioni ottenuto usando le n=1000 di partenza ed escludendone una.
