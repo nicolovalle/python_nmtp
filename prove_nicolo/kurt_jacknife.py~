@@ -10,9 +10,9 @@ c2=0
 c3=0
 quantile=[]
 
-NN=30    #repeat the program NN times --> get NN bootstram distributions
+NN=1    #repeat the program NN times --> get NN bootstram distributions
 
-Nboot=5000   #bootstrap sample dimensin (on 1000 data points)
+Nboot=50000   #bootstrap sample dimensin (on 1000 data points)
 datapoints=500
 
 
@@ -20,12 +20,14 @@ datapoints=500
 
 #teo=-6./5 #uniforme
 teo=-6./7 #uniforme**2
+#teo=0. #gaussiana
 
 for j in range(NN):
     print("----->j=",j)
 
-    V_V=np.random.random(datapoints)
-    VV=[v_v**2 for v_v in V_V]
+    #V_V=np.random.random(datapoints)
+    #VV=[v_v**2 for v_v in V_V]
+    VV=np.random.normal(0,1,datapoints)
     
        
     v = []
@@ -36,12 +38,13 @@ for j in range(NN):
         if (k%1000==0):
             print((Nboot-k)/1000)
         
-        indici=np.random.randint(datapoints,size=datapoints)
+        #indici=np.random.randint(datapoints,size=datapoints)
+        
        
         #print(s)
 
 
-        boots=[VV[z] for z in indici]
+        boots=[VV[z] for z in range(datapoints) if z != k]
         
 
         curt=(moment(boots,4)/moment(boots,2)**2)-3
