@@ -8,13 +8,13 @@ if [ -z $1 ];then
     echo
 else
     git add $1
-    echo ---------- $1 ADDED -----------------------
+    echo --------------- $1 ADDED ------------------
     if [ -z "$2" ]; then
 	git commit -m \"$1\"
 	echo ---------- COMMITTED WITH DEFAULT COMMENT --------
     else
 	git commit -m $2
-	echo ---------- COMMITTED -----------------------------   
+	echo ----------------- COMMITTED ----------------------   
     fi
     git pull --rebase
     git push -u origin master
