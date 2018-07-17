@@ -10,6 +10,5 @@ else
     echo ------- COMMITTED -----------   
 fi
 git pull --rebase
-echo ------- REBASE DONE ---------
 git push -u origin master
-echo ------- PUSHED ORIGIN -> MASTER ---------
+echo ------- DONE https://github.com/nicolovalle/python_nmtp ---------
