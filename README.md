@@ -55,7 +55,7 @@ git pull --rebase
 git push -u origin master
 ```
 
-2. Oppure... lo script _upload.sh_ da eseguire con
+2. Oppure usare lo script _upload.sh_ da eseguire con
 ```sh
 ./upload.sh miofile.py "Adding_miofile"
 ```
