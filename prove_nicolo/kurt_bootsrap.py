@@ -1,9 +1,28 @@
 #!/usr/bin/env python3
 
+"""
+    kurt_bootstrap.py 
+
+  Usage: ./ising.py [-M <method>] [-I <NN>] [-N <Nboot>] -P <datapoints> [-d <distr>]
+
+  Arguments:
+
+  Options:
+    -h --help         Display this help and exit
+    -M <method>       Method: boot/jack [default: boot]
+    -I <NN>           Repear the experiment NN times [default: 1]
+    -N <Nboot>        Bootstrap sample dimension [default: 5000]
+    -P <datapoints>   Number of data points
+    -d <distr>        Distribution (gaus/unif/uniuni) [default: gaus]
+    
+"""
+
 
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import moment
+import docopt
+import progressbar as pbar
 
 X=[]
 S=[]
@@ -14,15 +33,28 @@ c3=0
 quantile=[]
 Teo={'gaus':0., 'unif':(-6./5), 'uniuni':(-6./7)}
 
+
 ############# settings ####################
-NN=1    #repeat the program NN times --> get NN bootstram distributions
-Nboot=1000000   #bootstrap sample dimension (on 1000 data points)
-datapoints=500
-distr='uniuni'
+argv = docopt.docopt(__doc__,version="1.0")
+NN=int(argv["-I"])    #repeat the program NN times --> get NN bootstram distributions
+Nboot=int(argv["-N"])   #bootstrap sample dimension (on 1000 data points)
+datapoints=int(argv["-P"])
+distr=str(argv["-d"])
+method=str(argv["-M"])
 ###########################################
 
+
+
 teo=Teo[distr]
-namefig='images/'+str(NN)+'volte_'+str(Nboot)+'bootstrap_su'+str(datapoints)+'dati_'+distr+'.png'
+if (method=="boot"):
+    namefig='images/'+str(NN)+'volte_'+str(Nboot)+'bootstrap_su'+str(datapoints)+'dati_'+distr+'.png'
+    corr_fac=1
+    TT='Bootstrap'
+elif (method=="jack"):
+    namefig='images/'+str(NN)+'volte_'+str(datapoints)+'dati_jacknife'+distr+'.png'
+    corr_fac=np.sqrt(datapoints-1)
+    Nboot=datapoints
+    TT='Jacknife'
 
 def get_vector(s,n):
     if (s=='gaus'):
@@ -35,22 +67,32 @@ def get_vector(s,n):
 
 
 
-def bootstrap(Nboot_,datapoints_,distr_,want_vector):
+def bootstrap_jacknife(T,Nboot_,datapoints_,distr_,want_vector):
     VV=get_vector(distr_,datapoints_)
     v=[]
     for k in range(Nboot_):
         if (k%1000==0):
             print((Nboot_-k)/1000)
-        indici=np.random.randint(datapoints_,size=datapoints_)
-        boots=[VV[z] for z in indici]
+            
+        if (T=="boot"):
+            indici=np.random.randint(datapoints_,size=datapoints_)
+            boots=[VV[z] for z in indici]
+            
+        elif (T=="jack"):
+            boots=np.delete(VV,k)
+                  
+            
         curt=(moment(boots,4)/moment(boots,2)**2)-3
+        
 
         v.append(curt)
 
     if (want_vector):
-        return v, np.mean(v), np.std(v)
+        return v, np.mean(v), np.std(v)*corr_fac
     else:
-        return np.mean(v), np.std(v)
+        return np.mean(v), np.std(v)*corr_fac
+
+
     
    
 
@@ -60,11 +102,12 @@ for j in range(NN):
     
     #### plotting gaussian only if j=0
     if (j==0):
-        v,x,s=bootstrap(Nboot,datapoints,distr,True)
+        v,x,s=bootstrap_jacknife(method,Nboot,datapoints,distr,True)
+        s=s/corr_fac
         nbin=int(np.sqrt(Nboot))
         if (NN>9):
             plt.subplot(2,1,1)
-        plttitle='Bootstrap distribution '+str(NN)+' '+str(Nboot)+' '+str(datapoints)+' '+distr
+        plttitle=TT+' distribution '+str(NN)+' '+str(Nboot)+' '+str(datapoints)+' '+distr
         plt.title(plttitle)
         plt.hist(v,nbin,normed=True)
         minbin=x-4*s
@@ -75,9 +118,10 @@ for j in range(NN):
         plt.plot(fx,fy,color='g')
         textt=str(x)+"$\pm$"+str(s)
         textt='%7.4f'%(x)+' +/- '+'%7.4f'%(s) 
-        plt.text(teo-3.*s,1./(s*np.sqrt(2*np.pi)),textt)
+        #plt.text(teo-3.*s,1./(s*np.sqrt(2*np.pi)),textt)
+        s=s*corr_fac
     else:
-        x,s=bootstrap(Nboot,datapoints,distr,False)
+        x,s=bootstrap_jacknife(method,Nboot,datapoints,distr,False)
     X.append(x)
     S.append(s)
     quant=abs(x-teo)/s
@@ -95,7 +139,7 @@ for j in range(NN):
 if (NN>9):
     plt.subplot(2,1,2)
     #plt.text(1.5,0.7,'Quantiles vs Standard \n Gaussian')
-    summary='Teorico: %7.4f \nSingolo esperimento: %7.4f +/- %7.4f \nMedia delle medie Bootstrap: %7.4f \nRMS delle medie Bootstrap: %7.4f \nMedia delle varianze bootstrap: %7.4f \nRMS delle varianze Bootstrap: %7.4f'%(teo,X[0],S[0],np.mean(X),np.std(X),np.mean(S),np.std(S))
+    summary='Teorico: %7.4f \nSingolo esperimento: %7.4f +/- %7.4f \nMedia delle medie %s: %7.4f \nRMS delle medie %s: %7.4f \nMedia delle varianze %s: %7.4f \nRMS delle varianze %s: %7.4f'%(teo,X[0],S[0],TT,np.mean(X),TT,np.std(X),TT,np.mean(S),TT,np.std(S))
     plt.text(1.5,0.25,summary)   
     plt.hist(quantile,int(np.sqrt(NN)),normed=True,color='g')
     xq=[k/100. for k in range(400)]
