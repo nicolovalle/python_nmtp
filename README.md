@@ -59,9 +59,13 @@ git push -u origin master
 ```sh
 ./upload.sh miofile.py "Adding_miofile"
 ```
-che esegue tutti i comandi del punto 1. Verranno chieste le credenziali di accesso a GitHub. (_La nota tra virgolette deve essere un'unica parola..._)
+oppure
+```sh
+./upload.sh miofile.py
+```
+che esegue tutti i comandi del punto 1. Verranno chieste le credenziali di accesso a GitHub. (_La nota tra virgolette non è necessaria: se usata, deve essere una sola parola..._)
 
 3. To create and upload folders, it is necessary that they are not empty.
 ```sh
-./upload.sh nuovadirectory "Comment..."
+./upload.sh nuovadirectory ["Comment..."]
 ```
