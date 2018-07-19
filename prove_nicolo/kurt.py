@@ -87,6 +87,7 @@ def bootstrap_jacknife(T,Nboot_,datapoints_,distr_,want_vector):
     #print(VV)
     v=[]
     
+    
     if (Nboot==0):
         v.append((moment(VV,4)/moment(VV,2)**2)-3)
         
@@ -109,21 +110,21 @@ def bootstrap_jacknife(T,Nboot_,datapoints_,distr_,want_vector):
         v.append(curt)
 
     if (want_vector):
-        return v, np.mean(v), np.std(v)*corr_fac
+        return v, ((moment(VV,4)/moment(VV,2)**2)-3), np.mean(v), np.std(v)*corr_fac
     else:
         return np.mean(v), np.std(v)*corr_fac
 
 
     
    
-
+measured=-999.
 for j in range(NN):
     print("----->j=",j)
 
     
     #### plotting gaussian only if j=0 & Nboot>0
     if (j==0 and Nboot>0):
-        v,x,s=bootstrap_jacknife(method,Nboot,datapoints,distr,True)
+        v,measured,x,s=bootstrap_jacknife(method,Nboot,datapoints,distr,True)
         s=s/corr_fac
         nbin=int(np.sqrt(Nboot))
         if (NN>9):
@@ -137,7 +138,7 @@ for j in range(NN):
         plt.plot(bins,1/(s*np.sqrt(2*np.pi))*np.exp(-(bins-x)**2/(2*s**2)),linewidth=2,color='r')
         fx, fy = [teo,teo], [0,1.05/(s*np.sqrt(2*np.pi))]
         plt.plot(fx,fy,color='g')
-        textt='%7.4f'%(x)+' +/- '+'%7.4f'%(s*corr_fac) 
+        textt='Misurato: %7.4f \n%s: %7.4f +/- %7.4f'%(measured,TT,x,s*corr_fac) 
         plt.text(x-3.*s,1./(s*np.sqrt(2*np.pi)),textt)
         s=s*corr_fac
     else:
@@ -162,11 +163,11 @@ if (NN>9):
     if (Nboot>0):
         plt.subplot(2,1,2)
     #plt.text(1.5,0.7,'Quantiles vs Standard \n Gaussian')
-    summary='Teorico: %7.4f \nSingolo esperimento: %7.4f +/- %7.4f \nMedia delle medie %s: %7.4f \nRMS delle medie %s: %7.4f \nMedia delle varianze %s: %7.4f \nRMS delle varianze %s: %7.4f'%(teo,X[0],S[0],TT,np.mean(X),TT,np.std(X),TT,np.mean(S),TT,np.std(S))
+    summary='Teorico: %7.4f \nMisurato: %7.4f \nSingolo esperimento: %7.4f +/- %7.4f \nMedia delle medie %s: %7.4f \nRMS delle medie %s: %7.4f \nMedia delle varianze %s: %7.4f \nRMS delle varianze %s: %7.4f'%(teo,measured,X[0],S[0],TT,np.mean(X),TT,np.std(X),TT,np.mean(S),TT,np.std(S))
     if (Nboot>0):
         plt.text(1.5,0.25,summary)
     else:
-        summary=summary+'\n(IGNORA SINGOLO ESPERIMENTO)'
+        summary=summary+'\n(Ignora \"MISURATO\" e \"SINGOLO ESP.\")'
         plt.text(teo,1,summary)
     plt.hist(quantile,int(np.sqrt(NN)),normed=True,color='g')
     xq=[k/100. for k in range(400)]
