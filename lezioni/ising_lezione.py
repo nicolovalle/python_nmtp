@@ -102,6 +102,8 @@ bar = pbar.ProgressBar()
 #----------------------------------------------------------
 # therma + measure taking
 #----------------------------------------------------------
+namefile="Mag_"+str(L)+"_"+str(BETA)+".dat"
+outfile = open(namefile,"w")
 
 eTot = e2Tot = mTot = m2Tot = aTot = a2Tot = 0.0
 ip = []; ep = []; mp = []; ap = []
@@ -113,6 +115,8 @@ for i in bar(range(NTHERMA+NMC)):
         e, m = measure()
         a = math.fabs(m)
         ip.append(j-NTHERMA); ep.append(e); mp.append(m); ap.append(a)
+        outfile.write(str(a))
+        outfile.write('\n')
         eTot  += e
         mTot  += m
         aTot  += a
@@ -121,7 +125,11 @@ for i in bar(range(NTHERMA+NMC)):
         a2Tot += a**2
         if j % NPLOT == 0:
             ip.append(j-NTHERMA); ep.append(e); mp.append(m); ap.append(a)
+outfile.close()
 
+infile=open(namefile,'r')
+V=(infile.read())
+print(float(V[5]))
 if PLOTIT:
     plt.figure(figsize=(16,9))
     plt.title(r'Ising 2$D$')
