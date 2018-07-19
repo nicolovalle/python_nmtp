@@ -25,8 +25,8 @@ git clone https://github.com/nicolovalle/python_nmtp
 
 * Setting up your credentials (da eseguire in _python_nmtp_):
 ```sh
-git config --global user.name "Name Surname"
-git config --global user.email "name.surname@cern.ch"
+git config user.name "Name Surname"
+git config user.email "name.surname@cern.ch"
 ```
 
 
