@@ -10,6 +10,7 @@
   * https://github.com/prtkm/ising-monte-carlo/blob/master/ising-monte-carlo.org (Ising with Python)
   * http://young.physics.ucsc.edu/jackboot.pdf (jacknife e bootstrap)
   * http://www.helsinki.fi/~rummukai/simu/fss.pdf (Binder cumulants for Ising)
+  * https://arxiv.org/pdf/cond-mat/0701515.pdf (Un articolo che fa la simulazione)
 
 
 
