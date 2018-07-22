@@ -26,6 +26,7 @@ from scipy.stats import moment
 import docopt
 import progressbar as pbar
 import get_val
+import sys
 
 X=[]
 S=[]
@@ -86,6 +87,7 @@ if (Nboot==0):
 def bootstrap_jacknife(T,Nboot_,datapoints_,distr_,want_vector):
     
     VV=get_val.get_vector_random(distr_,datapoints_)
+    #VV, lllll=get_val.get_vector_file('../lezioni/Mag_32_0.44.dat')
     #print(VV)
     v=[]
     
@@ -139,7 +141,8 @@ for j in range(NN):
         bins=[minbin+(maxbin-minbin)*ii/nbin for ii in range(nbin)]
         plt.plot(bins,1/(s*np.sqrt(2*np.pi))*np.exp(-(bins-x)**2/(2*s**2)),linewidth=2,color='r')
         fx, fy = [teo,teo], [0,1.05/(s*np.sqrt(2*np.pi))]
-        plt.plot(fx,fy,color='g')
+        if not(method=="jack" and NN>9):
+            plt.plot(fx,fy,color='g')
         textt='Misurato: %7.4f \n%s: %7.4f +/- %7.4f'%(measured,TT,x,s*corr_fac) 
         plt.text(x-3.*s,1./(s*np.sqrt(2*np.pi)),textt)
         s=s*corr_fac
@@ -175,7 +178,11 @@ if (NN>9):
     yq=[2/(np.sqrt(2*np.pi))*np.exp(-(QQ)**2/2) for QQ in xq]
     if (Nboot>0):
         plt.plot(xq,yq,linewidth=2,color='b')
-        
+
+
 if (saveimg):
     plt.savefig(namefig)
-plt.show()
+else:
+    plt.show()
+
+

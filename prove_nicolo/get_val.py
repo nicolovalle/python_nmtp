@@ -15,6 +15,8 @@ def get_vector_random(s,n):
 ####################################################
 
 
-def get_vector_file():
-    nvfbiuorlebio=5
+def get_vector_file(filename):
+    VectorRet=np.loadtxt(filename)
+    Datap=len(VectorRet)
+    return VectorRet, Datap
 
