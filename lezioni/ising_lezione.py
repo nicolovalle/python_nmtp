@@ -128,8 +128,9 @@ for i in bar(range(NTHERMA+NMC)):
 outfile.close()
 
 infile=open(namefile,'r')
-V=(infile.read())
-print(float(V[5]))
+VVV=np.loadtxt(namefile)
+print(len(VVV))
+
 if PLOTIT:
     plt.figure(figsize=(16,9))
     plt.title(r'Ising 2$D$')
