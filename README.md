@@ -8,7 +8,7 @@
 
 > Non funziona per una certa classe di problemi: casi limite, estremi, disuguaglianze in generale...
 
-                                                                                                            AR
+                                                                                           AR
 
 
 ### Useful links
