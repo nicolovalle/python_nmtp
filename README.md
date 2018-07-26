@@ -22,8 +22,7 @@
   * http://young.physics.ucsc.edu/jackboot.pdf (bigino jacknife e bootstrap)
   * http://www.helsinki.fi/~rummukai/simu/fss.pdf (Binder cumulants for Ising)
   * https://arxiv.org/pdf/cond-mat/0701515.pdf (Un articolo che fa la simulazione)
-  * [B. Efron: Bootstrap Methods: Another Look at the Jackknife] (https://projecteuclid.org/download/pdf_1/euclid.aos/1176344552)
-
+  * https://projecteuclid.org/download/pdf_1/euclid.aos/1176344552 (B. Efron: Bootstrap Methods: Another Look at the Jackknife)
 
 
 
