@@ -2,11 +2,13 @@
 
 ### About Bootstrap...
 
-:+1:
 
-- [ ] L'aumento della varianza extracampione si compensa con la diminuzione della varianza intracampione...
 
-- [ ] Non funziona per una certa classe di problemi: casi limite, estremi, disuguaglianze in generale...
+> L'aumento della varianza extracampione si compensa con la diminuzione della varianza intracampione...
+
+> Non funziona per una certa classe di problemi: casi limite, estremi, disuguaglianze in generale...
+
+                                                                                                            AR
 
 
 ### Useful links
