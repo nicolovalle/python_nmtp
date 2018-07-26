@@ -8,7 +8,7 @@
 > Non funziona per una certa classe di problemi: casi limite, estremi, disuguaglianze in generale...
 
 
-## Useful links
+### Useful links
 
 
 
@@ -23,7 +23,7 @@
 
 
 
-## Git commands
+### Git commands
 
 * Cloning the repository (verrà creata la directory _pytoh_nmtp_ nella directory in cui esegui il programma)
 
@@ -53,7 +53,7 @@ git pull --rebase
 
 
 
-## Committing (basic workflow)
+### Committing (basic workflow)
 
 
 1. Add, commit, pull, push
