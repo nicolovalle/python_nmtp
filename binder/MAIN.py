@@ -20,7 +20,7 @@
       --old              Use old conventions for file text name
 """
 
-import FranciProva
+#import FranciProva
 import get_val
 import numpy as np
 import matplotlib.pyplot as plt

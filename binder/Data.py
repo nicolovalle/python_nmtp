@@ -22,10 +22,10 @@
 
 import docopt
 import numpy as np
-from pprint import pformat
+#from pprint import pformat
 from matplotlib import pyplot as plt
 from ising import Ising
-from kurt import bootstrap_jacknife
+#from kurt import bootstrap_jacknife
 import os
 
 
