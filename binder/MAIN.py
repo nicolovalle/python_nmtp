@@ -20,7 +20,7 @@
       --old              Use old conventions for file text name
 """
 
-#import FranciProva
+import FranciProva
 import get_val
 import numpy as np
 import matplotlib.pyplot as plt
@@ -57,6 +57,8 @@ if oldc:
 #y=np.zeros((len(Size),len(X)))
 #E=np.zeros((len(Size),len(X)))
 
+Y1=[]
+Y2=[]
 
 
 i,j = 0, 0
@@ -69,8 +71,13 @@ for L in Size:
         if oldc:
             B=str(B)
             B='0.'+B
-        mb,C,El = get_val.bootstrap_jacknife(InDir,L,B,NTHERMA,NMC,Method,Nboot,NMC,'gaus',False)
+        mb,C,El = get_val.bootstrap_jacknife(InDir,L,B,NTHERMA,NMC,Method,Nboot,NMC,'from_file',False)
         y.append(C)
+        if (i==0):
+            Y1.append(C)
+        if (i==1):
+            Y2.append(C)
+        
         E.append(El)
         #y[i][j]=C
         #E[i][j]=El
@@ -85,7 +92,10 @@ for L in Size:
 
 
 plt.grid()
-plt.show()
-#FranciProva.interpolated_intercept(x,np.asarray(y1),np.asarray(y2))
-    
+fplotdir=InDir+'/img.png'
+plt.savefig(fplotdir)
+
+#xc,yc=FranciProva.interpolated_intercept(np.asarray(x),np.asarray(Y1),np.asarray(Y2))
+#plt.text(x[1],0.2,r'$\beta$=%d'%(xc))
+plt.show()    
     

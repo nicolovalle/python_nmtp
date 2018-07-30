@@ -42,9 +42,14 @@ def curtosi(V):
 def bootstrap_jacknife(the_dir,size,beta,th,nmc,T, Nboot, datapoints, distr, want_vector):
     
     filename="%sMag_%s_%s_%s_%s.dat"%(the_dir,str(size),str(beta),str(th),str(nmc))
-    VV, number_of_points = get_vector_file(filename)
-
-   
+    VV=[]
+    if (distr=='from_file'):
+        VV, number_of_points = get_vector_file(filename)
+        if not number_of_points==datapoints:
+            print("Please, set the number of points properly")
+            exit()
+    else:
+        VV = get_vector_random(distr,datapoints)
 
     v=[]
     
