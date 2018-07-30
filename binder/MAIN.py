@@ -3,7 +3,7 @@
 """
    MAIN.py
 
-   Usage: ./MAIN.py -L Size... -i FirstBeta -f FinalBeta -S Step -t NTHERMA -N NMC [-D InDir] [-T Method] [-B Nboot]
+   Usage: ./MAIN.py -L Size... -i FirstBeta -f FinalBeta -S Step -t NTHERMA -N NMC [-D InDir] [-T Method] [-B Nboot] [--old]
 
    Options:
 
