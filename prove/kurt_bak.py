@@ -10,7 +10,7 @@
   Options:
     -h --help         Display this help and exit
     --dontsave        Do not save the plots
-    -M <method>       Method: boot/jack/jackran [default: boot]
+    -M <method>       Method: boot/jack [default: boot]
     -I <NN>           Repear the experiment NN times [default: 1]
     -N <Nboot>        Bootstrap sample dimension. Use 0 to work only on sample [default: 5000]
     -P <datapoints>   Number of data points
@@ -25,7 +25,7 @@ import matplotlib.pyplot as plt
 from scipy.stats import moment
 import docopt
 import progressbar as pbar
-from get_val import bootstrap_jacknife
+import get_val
 import sys
 
 X=[]
@@ -62,52 +62,62 @@ elif (method=="jack"):
     corr_fac=np.sqrt(datapoints-1)
     Nboot=datapoints
     TT='Jacknife'
-elif (method=="jackran"):
-    namefig='images/'+str(NN)+'volte_'+str(datapoints)+'dati_jacknifeRandom'+distr+'.png'
-    corr_fac=np.sqrt(datapoints-1)
-    Nboot=datapoints
-    TT='JacknifeRandom'
 if (Nboot==0):
     namefig='images/Real_distribution_of_'+str(NN)+'_kurtosis_on_'+str(datapoints)+'_data_'+distr+'.png'
 #####################################################
 
 
+############### returns random sample ###############
+#def get_vector(s,n):
+#    if (s=='gaus'):
+#        return np.random.normal(0,1,n)
+#    if (s=='unif'):
+#        return np.random.random(n)
+#    if (s=='uniuni'):
+#        return np.power(np.random.random(n),2)
+#    if (s=='dice'):
+#        return np.random.randint(6,size=n)
+#    if (s=='coin3070'):
+#        return np.random.binomial(1,0.3,size=n)
+#####################################################
+        
 
 
-#def bootstrap_jacknife(T,Nboot_,datapoints_,distr_,want_vector):
-#    
-#    VV=get_val.get_vector_random(distr_,datapoints_)
-#    #VV, lllll=get_val.get_vector_file('../lezioni/Mag_32_0.44.dat')
-#    #print(VV)
-#    v=[]
-#    
-#    
-#    if (Nboot==0):
-#        v.append((moment(VV,4)/moment(VV,2)**2)-3)
-#        
-#    for k in range(Nboot_):
-#        if (k%1000==0):
-#            print((Nboot_-k)/1000)
-#            
-#        if (T=="boot"):
-#            indici=np.random.randint(datapoints_,size=datapoints_)
-#            boots=[VV[z] for z in indici]
-#            
-#            
-#        elif (T=="jack"):
-#            boots=np.delete(VV,k)
-#                  
-#            
-#        curt=(moment(boots,4)/moment(boots,2)**2)-3
-#        
-#
-#        v.append(curt)
-#
-#    if (want_vector):
-#        return v, ((moment(VV,4)/moment(VV,2)**2)-3), np.mean(v), np.std(v)*corr_fac
-#    else:
-#        return np.mean(v), np.std(v)*corr_fac
-#
+
+def bootstrap_jacknife(T,Nboot_,datapoints_,distr_,want_vector):
+    
+    VV=get_val.get_vector_random(distr_,datapoints_)
+    #VV, lllll=get_val.get_vector_file('../lezioni/Mag_32_0.44.dat')
+    #print(VV)
+    v=[]
+    
+    
+    if (Nboot==0):
+        v.append((moment(VV,4)/moment(VV,2)**2)-3)
+        
+    for k in range(Nboot_):
+        if (k%1000==0):
+            print((Nboot_-k)/1000)
+            
+        if (T=="boot"):
+            indici=np.random.randint(datapoints_,size=datapoints_)
+            boots=[VV[z] for z in indici]
+            
+            
+        elif (T=="jack"):
+            boots=np.delete(VV,k)
+                  
+            
+        curt=(moment(boots,4)/moment(boots,2)**2)-3
+        
+
+        v.append(curt)
+
+    if (want_vector):
+        return v, ((moment(VV,4)/moment(VV,2)**2)-3), np.mean(v), np.std(v)*corr_fac
+    else:
+        return np.mean(v), np.std(v)*corr_fac
+
 
     
    
@@ -118,9 +128,7 @@ for j in range(NN):
     
     #### plotting gaussian only if j=0 & Nboot>0
     if (j==0 and Nboot>0):
-
-        ###  the first 5 arguments don't matter
-        v,measured,x,s=bootstrap_jacknife(0,0,0,0,0,method,Nboot,datapoints,distr,corr_fac,True)
+        v,measured,x,s=bootstrap_jacknife(method,Nboot,datapoints,distr,True)
         s=s/corr_fac
         nbin=int(np.sqrt(Nboot))
         if (NN>9):
@@ -139,7 +147,7 @@ for j in range(NN):
         plt.text(x-3.*s,1./(s*np.sqrt(2*np.pi)),textt)
         s=s*corr_fac
     else:
-        temp,x,s=bootstrap_jacknife(0,0,0,0,0,method,Nboot,datapoints,distr,corr_fac,False)
+        x,s=bootstrap_jacknife(method,Nboot,datapoints,distr,False)
     X.append(x)
     S.append(s)
     quant=x
