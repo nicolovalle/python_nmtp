@@ -41,6 +41,11 @@ xt=[float(argv["-i"])+ k*float(argv["-S"])  for k in range(int(mol)+10)]
 x=[B for B in xt if B<=float(argv["-f"])]
 X=[int(B*1000+0.5) for B in xt if B<=float(argv["-f"])]
 
+if (Method=='boot'):
+    corr_fac=1
+else:
+    corr_fac=np.sqrt(NMC-1.)
+
 
 
 if oldc:
@@ -71,7 +76,7 @@ for L in Size:
         if oldc:
             B=str(B)
             B='0.'+B
-        mb,C,El = get_val.bootstrap_jacknife(InDir,L,B,NTHERMA,NMC,Method,Nboot,NMC,'from_file',False)
+        C,mb,El = get_val.bootstrap_jacknife(InDir,L,B,NTHERMA,NMC,Method,Nboot,NMC,'from_file',corr_fac,False)
         y.append(C)
         if (i==0):
             Y1.append(C)
@@ -95,7 +100,7 @@ plt.grid()
 fplotdir=InDir+'/img.png'
 plt.savefig(fplotdir)
 
-#xc,yc=FranciProva.interpolated_intercept(np.asarray(x),np.asarray(Y1),np.asarray(Y2))
-#plt.text(x[1],0.2,r'$\beta$=%d'%(xc))
+xc,yc=FranciProva.interpolated_intercept(np.asarray(x),np.asarray(Y1),np.asarray(Y2))
+plt.text(x[1],Y1[1],r'$\beta$=%7.4f'%(xc))
 plt.show()    
     
