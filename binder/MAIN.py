@@ -3,7 +3,7 @@
 """
    MAIN.py
 
-   Usage: ./MAIN.py -L Size... -i FirstBeta -f FinalBeta -S Step -t NTHERMA -N NMC [-D InDir] [-T Method] [-B Nboot] [--old]
+   Usage: ./MAIN.py -L Size... -i FirstBeta -f FinalBeta -S Step -t NTHERMA -N NMC [-D InDir] [-T Method] [-B Nboot] [--old] [--nobeta]
 
    Options:
 
@@ -18,6 +18,7 @@
       -T Method          boot/jack/jackran [default: boot]
       -B Nboot           Bootstrap sample dimension [default: 1000]
       --old              Use old conventions for file text name
+      --nobeta           w/o interception
 """
 
 import FranciProva
@@ -35,6 +36,7 @@ InDir= argv["-D"]
 Method=argv["-T"]
 Nboot=int(argv["-B"])
 oldc=bool(argv["--old"])
+wantint=not bool(argv["--nobeta"])
 
 mol=(float(argv["-f"])-float(argv["-i"]))/float(argv["-S"])
 xt=[float(argv["-i"])+ k*float(argv["-S"])  for k in range(int(mol)+10)]
@@ -89,7 +91,8 @@ for L in Size:
         j+=1
         
     i+=1
-    plt.errorbar(x,y,yerr=E)
+    lab='Lattice '+str(L)+'x'+str(L)
+    plt.errorbar(x,y,yerr=E,label=lab)
     print(L,'Errors: ',E)
     
 
@@ -98,9 +101,12 @@ for L in Size:
 
 plt.grid()
 fplotdir=InDir+'/img.png'
-plt.savefig(fplotdir)
 
-xc,yc=FranciProva.interpolated_intercept(np.asarray(x),np.asarray(Y1),np.asarray(Y2))
-plt.text(x[1],Y1[1],r'$\beta$=%7.4f'%(xc))
+plt.title(r'Critical $\beta$ from Binder Cumulants interception')
+if (wantint):
+    xc,yc=FranciProva.interpolated_intercept(np.asarray(x),np.asarray(Y1),np.asarray(Y2))
+    plt.text(x[1],Y1[1],r'$\beta$=%7.4f'%(xc))
+plt.legend(frameon=False, fontsize=10, numpoints=1, loc='lower left')
+plt.savefig(fplotdir)
 plt.show()    
     
